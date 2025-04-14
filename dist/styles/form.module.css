@@ -1,0 +1,352 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=ZCOOL+KuaiLe&display=swap");
+
+.form {
+    position: relative;
+    width: 90%;
+    max-width: 100%;
+    height: 15px;
+  }
+  
+  .formContainer {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    width: 100%;
+    height: 55px;
+    pointer-events: auto;
+  }
+  
+  .dragging {
+    box-shadow: 0 0 0 2px #ffffff;
+  }
+  
+  .focused {
+    box-shadow: 0 0 0 2px #ffffff;
+  }
+  
+  .loading {
+    animation: pulse-loading 1.5s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  
+  @keyframes pulse-loading {
+    0% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.6;
+    }
+  }
+  
+  .inputContainer {
+    padding: 5px 12px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .inputWrapper {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .fileInput {
+    display: none;
+  }
+  
+  .iconButton {
+    background: transparent;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    height: 44px;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  
+  .iconButton:hover {
+    color: #ffffff;
+  }
+  
+  .iconButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .icon {
+    height: 22px;
+    width: 22px;
+  }
+  
+  .textarea {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 1px;
+    resize: none;
+    font-size: 1rem;
+    letter-spacing: normal;
+    font-family: inherit;
+    min-height: 20px;
+    overflow: hidden;
+    width: 100%;
+    height: 20px;
+    font-family: "Space Grotesk", sans-serif;
+  }
+  
+  .textarea::placeholder {
+    color: #999;
+  }
+  
+  .textarea:focus {
+    outline: none;
+  }
+  
+  .submitButton {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 50%;
+    height: 44px;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+  
+  .submitButton:hover {
+    background-color: #eee;
+  }
+  
+  .submitButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .dragOverlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  .dragText {
+    color: #ffffff;
+    font-weight: 500;
+    letter-spacing: normal;
+    font-size: 1.25rem;
+  }
+  
+  .errorMessage {
+    margin-top: 8px;
+    color: #ff4d4f;
+    font-size: 0.875rem;
+    letter-spacing: normal;
+  }
+  
+  /* Estilos para el área de imágenes */
+  .imageUploadArea {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 16px 16px 8px 16px;
+    pointer-events: auto;
+  }
+  
+  .imageContainer {
+    position: relative;
+    height: 60px;
+    width: 60px;
+  }
+  
+  .image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .removeButton {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .removeIcon {
+    color: white;
+    font-size: 14px;
+    line-height: 1;
+  }
+  
+  /* Media queries para responsividad */
+  @media (max-width: 768px) {
+    .formContainer {
+      border-radius: 20px;
+     
+    }
+  
+    .inputContainer {
+      padding: 8px 10px;
+    }
+  
+    .iconButton,
+    .submitButton {
+      height: 40px;
+      width: 40px;
+    }
+  
+    .icon {
+      height: 20px;
+      width: 20px;
+    }
+  
+    .textarea {
+      font-size: 0.95rem;
+      padding: 1px;
+      height: 20px;
+    }
+  
+    .imageContainer {
+      height: 50px;
+      width: 50px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .formContainer {
+      border-radius: 16px;
+    }
+  
+    .imageUploadArea {
+      gap: 8px;
+      padding: 12px 12px 6px 12px;
+    }
+  
+    .imageContainer {
+      height: 45px;
+      width: 45px;
+    }
+  
+    .removeButton {
+      width: 16px;
+      height: 16px;
+    }
+  
+    .removeIcon {
+      font-size: 12px;
+    }
+  }
+
+
+  /* Estilos para el contenido del modal */
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  color: #ffffff;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.modalText {
+  font-size: 1rem;
+  color: #cccccc;
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.promptPreview {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 0.95rem;
+  color: #ffffff;
+  max-height: 120px;
+  overflow-y: auto;
+  word-break: break-word;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.imagesInfo {
+  font-size: 0.9rem;
+  color: #cccccc;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.cancelButton {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.cancelButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.confirmButton {
+  background-color: #ffffff;
+  border: none;
+  color: #000000;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  pointer-events: all;
+}
+
+.confirmButton:hover {
+  background-color: #eeeeee;
+}
+
+  
+  

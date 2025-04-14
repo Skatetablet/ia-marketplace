@@ -2,7 +2,7 @@ import type React from "react"
 import { useEffect, useState } from "react"
 
 interface NavbarProps {
-  scrollToSection: (sectionId: string) => void
+  scrollToSection?: (sectionId: string) => void
 }
 
 const Navbar: React.FC<NavbarProps> = ({ scrollToSection }) => {
@@ -32,23 +32,29 @@ const Navbar: React.FC<NavbarProps> = ({ scrollToSection }) => {
             href="#"
             onClick={(e) => {
               e.preventDefault()
-              scrollToSection("page-1")
+              //scrollToSection("page-1")
             }}
             className="navbar-logo-hover-container"
           >
             <div className="navbar-logo-hover-effect">
               <img src="/Images/logoWhite.png" alt="IAMarket" className="navbar-logo-image" />
-              <div className="navbar-logo-tooltip">Inicio</div>
+              
             </div>
           </a>
         </div>
 
         <div className="navbar-about">
           <a
-            href="#"
+            href="/marketplace"
+            className="primary-button"
+            style={{ 
+              margin: 0, 
+              height: '45px', 
+              padding: '0 30px',
+              fontSize: '14px'
+            }}
             onClick={(e) => {
-              e.preventDefault()
-              scrollToSection("page-4")
+              
             }}
           >
             MARKETPLACE

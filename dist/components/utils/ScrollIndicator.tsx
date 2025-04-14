@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useEffect, useState } from "react"
-import '../../src/styles.css'
+import '../../../src/styles.css'
 
 const ScrollIndicator: React.FC = () => {
   const [scrollProgress, setScrollProgress] = useState(0)

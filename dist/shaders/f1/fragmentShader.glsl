@@ -4,6 +4,9 @@ uniform float u_time;
 uniform float r;
 uniform float g;
 uniform float b;
+uniform float metalness;
+uniform float roughness;
+uniform float clearcoat;
 
 varying vec2 vUv;
 varying float vDisplacement;

@@ -9,7 +9,11 @@ import gsap from 'gsap'
 import { BufferGeometry, Material, Mesh, NormalBufferAttributes, Object3DEventMap } from 'three'
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from 'three';
+import { timelinePoints } from './animationspoint'
+import {useMorphSVG} from "../hooks/useMorphSVG"
+import { getSplitText } from '../utils/getSplitText'
 
+//import SplitText from "gsap/SplitText"
 
 
 export function Model(props: any) {
@@ -29,7 +33,7 @@ export function Model(props: any) {
   const timeline = useRef<gsap.core.Timeline | null>(null)
   
   // variables para que el modelo tome propiedades segun la animacion
-  const generalGroupRef = useRef<THREE.Group>()
+  const generalGroupRef = useRef<THREE.Group | null>(null)
   const welcomeView = useRef<Mesh<BufferGeometry<NormalBufferAttributes>, Material | Material[], Object3DEventMap>>(null);
   const marketPlaceView = useRef<Mesh<BufferGeometry<NormalBufferAttributes>, Material | Material[], Object3DEventMap>>(null);
   const specialModelsView = useRef<Mesh<BufferGeometry<NormalBufferAttributes>, Material | Material[], Object3DEventMap>>(null);
@@ -49,19 +53,43 @@ export function Model(props: any) {
     page1.current = document.getElementById('page-1')
     page2.current = document.getElementById('page-2')
     page3.current = document.getElementById('page-3')
-   // page4.current = document.getElementById('page-4') 
-   // page5.current = document.getElementById('page-5') 
+    page4.current = document.getElementById('page-4') 
+    page5.current = document.getElementById('page-5') 
     body.current = document.getElementById('canvas')
-    
+   
   })
 
+
+  useMorphSVG()
+  
+  const SplitText = getSplitText()
+
+
+  
+
+  const elementAlpha = document.querySelector('.alpha-title')
+  const elementMarket = document.querySelector('.marketplace-title')
+
+  const elementWtitle = document.querySelector('.welcome-text-title')
+  const elementWSubtitle = document.querySelector('.welcome-text-subTitle')
+
+  const alpha = new SplitText(elementAlpha, { type: 'chars' })
+  const market = new SplitText(elementMarket, { type: 'chars' })
+
+  const wtitle = new SplitText( elementWtitle, { type: 'words' })
+  const wsubtitle = new SplitText(elementWSubtitle, { type: 'words' })
+  
+  console.log("wtitle", wtitle.words)
+  console.log("wsubtitle", wsubtitle.words)
+
   useLayoutEffect(() => {
+        
         timeline.current = gsap.timeline({
           scrollTrigger: {
             trigger: '.pages_wrapper',
             start: 'top top',
             end: 'bottom bottom',
-            scrub:1
+            scrub:true
           }
           
         })
@@ -73,19 +101,19 @@ export function Model(props: any) {
             objectToAnimate: page1.current,
             properties: {
               opacity: 0,
-              duration: 0.3,
+              duration: 0.5,
               
             },
-            timelinePoint: 0.0,
+            timelinePoint: 0.2,
           },
           // html div
           {
             objectToAnimate: page2.current,
             properties: {
               opacity: 1,
-              duration: 0.9,
+              duration: 0.5,
             },
-            timelinePoint: 0.2,
+            timelinePoint: 0.4,
           },
           {
             objectToAnimate: controls.current.target,
@@ -112,23 +140,55 @@ export function Model(props: any) {
             objectToAnimate: body.current,
             properties:{
               duration: 1,
-              backgroundColor: "#151514"
+              backgroundColor: "#114d69"
             },
             timelinePoint: 0.0
           },
-          
           {
-            objectToAnimate: page2.current?.querySelector('.alpha-title'),
+            objectToAnimate: alpha.chars,
+            splitType: 'chars',
             properties: {
               opacity: 1,
               rotationX: 360,
-              y: 50,
+              y: 20,
               duration: 0.5,
-              ease: 'power4.out',
+              ease: 'power2.out',
               transformPerspective: 800,
+              stagger: 0.07 ,
             },
-            timelinePoint: 0.20,
-          }
+            timelinePoint: 0.4,
+          },
+          {
+            objectToAnimate: wtitle.words,
+            splitType: 'words',
+            properties: {
+              opacity: 0,
+              
+              y: 20,
+              duration: 1,
+              ease: 'back',
+              transformPerspective: 800,
+              stagger: 0.07 ,
+            },
+            timelinePoint: 0.2,
+          },
+          {
+            objectToAnimate: wsubtitle.words,
+            splitType: 'words',
+            properties: {
+              opacity: 0,
+              
+              y: 20,
+              duration: 0.7,
+              ease: 'back',
+              transformPerspective: 800,
+              stagger: 0.07 ,
+            },
+            timelinePoint: 0.2,
+          },
+
+          
+         
           
         ]
         AnimationsData = [...AnimationsData, ...WelcomeViewAnimation]
@@ -149,6 +209,7 @@ export function Model(props: any) {
             properties: {
               opacity: 1,
               duration: 0.6,
+              
             },
             timelinePoint: 1.5
           },
@@ -178,41 +239,43 @@ export function Model(props: any) {
             objectToAnimate: body.current,
             properties:{
               duration: 1,
-              backgroundColor: "#3b82f6"
+              backgroundColor: "#536c9b"
             },
             timelinePoint: 1.2
           },
 
           {
-            objectToAnimate: page2.current?.querySelector('.alpha-title'),
+            objectToAnimate: alpha.chars,
             properties: {
               opacity: 0,
-              rotationX: 360,
-              y: 50,
-              duration: 0.5,
-              ease: 'power4.out',
-              transformPerspective: 800,
+              y: -40,
+              rotationX: 180,
+              duration: 0.6,
+              ease: 'power2.inOut',
+              stagger: 0.04,
             },
-            timelinePoint: 1.48,
+            timelinePoint: 1.15,
           },
 
           {
-            objectToAnimate: page3.current?.querySelector('.message'),
+            objectToAnimate: market.chars,
+            splitType: 'chars',
             properties: {
               opacity: 1,
               rotationX: 360,
-              y: 50,
-              duration: 0.5,
-              ease: 'power4.out',
+              y: 20,
+              duration: 0.7,
+              ease: 'power2.out',
               transformPerspective: 800,
+              stagger: 0.04,
             },
-            timelinePoint: 1.48,
-          }
+            timelinePoint: 1.2,
+          },
+
           
+
           
-          
-        
-          
+
         ]
         AnimationsData = [...AnimationsData, ...AlphaPlaceAnimation]
     
@@ -223,9 +286,9 @@ export function Model(props: any) {
             objectToAnimate: page3.current,
             properties: {
               opacity: 0,
-              duration: 0.3,
+              duration: 0.4,
             },
-            timelinePoint: 3.2,
+            timelinePoint: 2.2,
           },
     
           //html div
@@ -233,20 +296,75 @@ export function Model(props: any) {
             objectToAnimate: page4.current,
             properties: {
               opacity: 1,
-              duration: 0.3,
+              duration: 0.5,
+              position: "absolute",
             },
-            timelinePoint: 3.3,
+            timelinePoint:2.5,
           }
           ,
           {
             objectToAnimate: controls.current.target,
-            properties: {x: -0.994,y: 1.0,z: 1, duration: 0.8},
-            timelinePoint: 3.6,
+            properties: {x: 50,y: 0,z: 0, duration: 0.8},
+            timelinePoint: 2.3,
           },
           {
             objectToAnimate: camera.position,
-            properties: { x: 0, y: 6.6097, z: 0.3, duration: 0.8},
-            timelinePoint: 3,
+            properties: { x: 50,y: 0,z: 2.5, duration: 0.8},
+            timelinePoint:2.3,
+          },
+          {
+            objectToAnimate: camera,
+            properties:{
+              zoom:2.5,
+              duration: 0.8,
+              onUpdate: () => {
+                camera.updateProjectionMatrix()
+              }
+            },
+            timelinePoint: 2,
+          },
+          {
+            objectToAnimate: body.current,
+            properties:{
+              duration: 1,
+              backgroundColor: "#100c5c"
+            },
+            timelinePoint: 2.1
+          },
+        ]
+        AnimationsData = [...AnimationsData, ...MarketPlaceAnimation]
+        
+        // Modelos especializados camera animation view
+        const SpecialModelsAnimation = [
+         
+          {
+            objectToAnimate: page4.current,
+            properties: {
+              opacity: 0,
+              duration: 0.3,
+              position: "relative",
+            },
+            timelinePoint: 3.2,
+          },
+          // Html div
+          {
+            objectToAnimate: page5.current,
+            properties: {
+              opacity: 1,
+              duration: 0.8,
+              position: "absolute",
+            },
+            timelinePoint: 3.5,
+          },
+          {
+            objectToAnimate: controls.current.target,
+            properties: {x: 70,y: 0,z: 0, duration: 0.8 },
+            timelinePoint: 3.3,
+          },
+          {
+            objectToAnimate: camera.position,
+            properties: { x: 70, y: 0, z: 2.5, duration: 0.8 },
+            timelinePoint: 3.3,
           },
           {
             objectToAnimate: camera,
@@ -259,52 +377,16 @@ export function Model(props: any) {
             },
             timelinePoint: 3,
           },
-        ]
-       // AnimationsData = [...AnimationsData, ...MarketPlaceAnimation]
-        
-        // Modelos especializados camera animation view
-        const SpecialModelsAnimation = [
-         
           {
-            objectToAnimate: page4.current,
-            properties: {
-              opacity: 0,
-              duration: 0.3,
-            },
-            timelinePoint: 4,
-          },
-          // Html div
-          {
-            objectToAnimate: page5.current,
-            properties: {
-              opacity: 1,
-              duration: 0.8,
-            },
-            timelinePoint: 4.2,
-          },
-          {
-            objectToAnimate: controls.current.target,
-            properties: {x: -0.7,y: -0.994,z: 1, duration: 0.8 },
-            timelinePoint: 4,
-          },
-          {
-            objectToAnimate: camera.position,
-            properties: { x: 2, y: -0.23, z: 4, duration: 0.8 },
-            timelinePoint: 4,
-          },
-          {
-            objectToAnimate: camera,
+            objectToAnimate: body.current,
             properties:{
-              zoom:4.5,
-              duration: 0.8,
-              onUpdate: () => {
-                camera.updateProjectionMatrix()
-              }
+              duration: 1,
+              backgroundColor: "#20a4d8"
             },
-            timelinePoint: 4,
+            timelinePoint: 3.1
           },
         ]
-       // AnimationsData = [...AnimationsData, ...SpecialModelsAnimation]
+       AnimationsData = [...AnimationsData, ...SpecialModelsAnimation]
 
        
     
