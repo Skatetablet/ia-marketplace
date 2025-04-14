@@ -36,8 +36,8 @@ const BlobRow = () => {
         'alien',
         'lava',
         'metallic',
-        'shine',
-        'waves',
+        'ghostFlame',
+        'lightning',
        
       ];
       

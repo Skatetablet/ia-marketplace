@@ -58,7 +58,7 @@ const Blob: React.FC<BlobProps> = ({
   blobFreq = 2.0,
   surfaceDistort = 0.6,
   surfaceFreq = 2.5,
-  waves = 3.0,
+  waves = 2.0,
   vertexShader = '',
   fragmentShader = '',
   color1 = "",
@@ -86,7 +86,7 @@ const Blob: React.FC<BlobProps> = ({
    // Escalado responsivo si no se pasa explícitamente
    const scaleFactor =
    customScale ??
-   (viewport.width < 480 ? 5 : viewport.width < 768 ? 0.2 : 0.3)
+   (viewport.width < 480 ? 0.2 : viewport.width < 768 ? 0.2 : 0.2)
 
    
 
@@ -121,35 +121,17 @@ const Blob: React.FC<BlobProps> = ({
     );
 
   
-    useFrame((state) => {
-      const { clock } = state;
-      if (mesh.current) {
-        const shader = mesh.current.material as THREE.ShaderMaterial;
-        
-        // Movimiento animado único por blob
-        shader.uniforms.u_time.value = clock.getElapsedTime() * speed + phase;
-    
-        // Mantener u_intensity constante o animarla si quieres pulsos
-        shader.uniforms.u_intensity.value = distortion;
-
-        shader.uniforms.u_time.value = clock.getElapsedTime();
-  
-       
-      }
-    });
-
-
     useFrame(({ clock }) => {
+      if (!mesh.current) return;
+      const shader = mesh.current.material as THREE.ShaderMaterial;
     
-        uniforms.iTime.value = clock.getElapsedTime();
-  
-      // Actualizar valores dinámicos
-        uniforms.color1.value.set(color1);
-        uniforms.color2.value.set(color2);
-        uniforms.color3.value.set(color3);
-        uniforms.pulseSpeed.value = pulseSpeed;
-        uniforms.glowStrength.value = glowStrength;
-      
+      shader.uniforms.u_time.value = clock.getElapsedTime() * speed + phase;
+      shader.uniforms.iTime.value = clock.getElapsedTime();
+      shader.uniforms.color1.value.set(color1);
+      shader.uniforms.color2.value.set(color2);
+      shader.uniforms.color3.value.set(color3);
+      shader.uniforms.pulseSpeed.value = pulseSpeed;
+      shader.uniforms.glowStrength.value = glowStrength;
     });
 
     useEffect(() => {

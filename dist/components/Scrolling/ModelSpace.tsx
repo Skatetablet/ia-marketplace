@@ -381,7 +381,7 @@ export function Model(props: any) {
             objectToAnimate: body.current,
             properties:{
               duration: 1,
-              backgroundColor: "#20a4d8"
+              backgroundColor: "#244087"
             },
             timelinePoint: 3.1
           },

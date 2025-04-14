@@ -354,7 +354,7 @@ export function Model(props: any) {
               duration: 0.8,
               position: "absolute",
             },
-            timelinePoint: 3.5,
+            timelinePoint: 3.6,
           },
           {
             objectToAnimate: controls.current.target,
@@ -381,7 +381,7 @@ export function Model(props: any) {
             objectToAnimate: body.current,
             properties:{
               duration: 1,
-              backgroundColor: "#20a4d8"
+              backgroundColor: "#0b1a24"
             },
             timelinePoint: 3.1
           },

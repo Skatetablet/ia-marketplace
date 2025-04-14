@@ -36,8 +36,8 @@ const BlobRow = () => {
         'alien',
         'lava',
         'metallic',
-        'shine',
-        'waves',
+        'ghostFlame',
+        'lightning',
        
       ];
       
@@ -87,13 +87,12 @@ const BlobRow = () => {
   )
 }
 const Scene: React.FC = () => {
-  
   return (
     
     <div  >
       
       <div >
-          <Canvas id='canvas' shadows  camera={{  fov: 50 }} dpr={[1, 2]}  >
+          <Canvas style={{ overflow: "hidden", pointerEvents: "auto" }} id='canvas' shadows  camera={{  fov: 50 }} dpr={[1, 2]}  >
           <ambientLight intensity={1.6} />
           <pointLight position={[-1 ,-0.11 , -10]} intensity={1999} />
           <pointLight position={[2 ,-0.11 , 5.5]} intensity={500} />
